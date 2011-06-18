@@ -49,7 +49,7 @@ class sfNestedCommentFrontForm extends sfNestedCommentForm
         'private_key' => sfConfig::get('app_recaptcha_private_key')
       ));
     }
-    
+
     $this->validatorSchema->setOption('allow_extra_fields', true);
     $this->validatorSchema->setOption('filter_extra_fields', true);
 
