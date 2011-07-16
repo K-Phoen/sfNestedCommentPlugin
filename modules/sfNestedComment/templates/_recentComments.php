@@ -29,10 +29,10 @@
             <?php echo $comment->getAuthorName() ?>
           <?php endif; ?>
           <?php echo __('on') ?>&nbsp;
-          <?php if (false !== $url = url_for_commentable_object($commentableObject)): ?>
-            <a href="<?php echo $url.'#comment-'.$comment->getId() ?>"><?php echo sfNestedCommentTools::ellipsis($commentableObject->__toString()) ?></a>
+          <?php if (false !== ($url = url_for_commentable_object($commentableObject))): ?>
+            <a href="<?php echo $url.'#comment-'.$comment->getId() ?>"><?php echo sfNestedCommentTools::ellipsis((string) $commentableObject) ?></a>
           <?php else: ?>
-            <?php echo sfNestedCommentTools::ellipsis($commentableObject->__toString()) ?>
+            <?php echo sfNestedCommentTools::ellipsis((string) $commentableObject) ?>
           <?php endif; ?>
         </td>
       </tr>
