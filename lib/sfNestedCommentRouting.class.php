@@ -8,6 +8,7 @@ class sfNestedCommentRouting
     // preprend our routes
     $r->prependRoute('sf_nested_comment_commenting', new sfRoute('/comment/show', array('module' => 'sfNestedComment', 'action' => 'commenting')));
     $r->prependRoute('sf_nested_commend_add', new sfRoute('/comment/add', array('module' => 'sfNestedComment', 'action' => 'addComment')));
+    $r->prependRoute('sf_nested_commend_preview', new sfRoute('/comment/preview', array('module' => 'sfNestedComment', 'action' => 'preview')));
   }
 
   static public function addRouteForNestedCommentAdmin(sfEvent $event)

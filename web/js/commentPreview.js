@@ -4,7 +4,7 @@ jQuery(document).ready(function() {
     var loader = jQuery('#add-comment-loader');
     jQuery.ajax({
       type: 'POST',
-      url: location.protocol + '//' + location.host + '/sfNestedComment/preview',
+      url: location.protocol + '//' + location.host + '/comment/preview',
       async: false,
       data: { commentText: jQuery('#sf_nested_comment_content').val() },
       beforeSend:function() { loader.show(); },
