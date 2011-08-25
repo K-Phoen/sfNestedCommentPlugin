@@ -16,7 +16,7 @@
       <input type="submit" value="<?php echo __('Submit comment') ?>" id="sumbit-comment" />
       <?php if($use_ajax): ?>
         <input type="button" value="<?php echo __('Preview') ?>" id="preview-comment-button" />
-        <span id="add-comment-loader" style="display:none;"><?php echo image_tag('/sfNestedCommentPlugin/images/loading.gif') ?></span>
+        <span id="add-comment-loader" style="display:none;"><?php echo image_tag('/sfNestedCommentPlugin/images/loading.gif', array('alt' => '')) ?></span>
       <?php endif; ?>
     </div>
   </form>
