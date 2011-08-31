@@ -21,6 +21,16 @@ class sfNestedCommentRouting
       'with_wildcard_routes' => true,
       'requirements'         => array(),
     )));
-    $event->getSubject()->prependRoute('sf_nested_comment_toggle_publish', new sfPropelORMRoute('/sf_nested_comment/:id/toggleApprove.:sf_format', array('module' => 'sfNestedCommentAdmin', 'action' => 'togglePublish', 'sf_format' => 'html'), array(), array('model' => 'sfNestedComment', 'type' => 'object')));
+
+    $event->getSubject()->prependRoute('sf_nested_comment_toggle_publish', new sfPropelORMRoute(
+      '/sf_nested_comment/:id/toggleApprove.:sf_format',
+      array(
+        'module'    => 'sfNestedCommentAdmin',
+        'action'    => 'togglePublish',
+        'sf_format' => 'html'
+      ),
+      array(),
+      array('model' => 'sfNestedComment', 'type' => 'object')
+    ));
   }
 }

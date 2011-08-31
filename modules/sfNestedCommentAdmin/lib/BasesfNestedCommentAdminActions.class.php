@@ -5,6 +5,13 @@ require_once dirname(__FILE__).'/sfNestedCommentAdminGeneratorHelper.class.php';
 
 class BasesfNestedCommentAdminActions extends autoSfNestedCommentAdminActions
 {
+  public function preExecute()
+  {
+    parent::preExecute();
+
+    $this->getContext()->getConfiguration()->loadHelpers('I18N');
+  }
+
   protected function prepareMailParameter($reply, $comment)
   {
     $subject_string = '%1% replied to your comment on "%2%"';
@@ -22,7 +29,7 @@ class BasesfNestedCommentAdminActions extends autoSfNestedCommentAdminActions
     $event = $this->dispatcher->filter(new sfEvent($this, 'sf_nested_comment.reply.prepare_mail_parameter'), $params);
     return $event->getReturnValue();
   }
-  
+
   public function executeTogglePublish(sfWebRequest $request)
   {
     $comment = $this->getRoute()->getObject();
@@ -54,12 +61,12 @@ class BasesfNestedCommentAdminActions extends autoSfNestedCommentAdminActions
     if ($form->isValid())
     {
       $isNew = $form->getObject()->isNew();
-      $notice = $isNew ? 'Your reply was saved successfully.' : 'The item was updated successfully.';
+      $notice = $isNew ? __('Your reply was saved successfully.') : __('The item was updated successfully.');
 
       $sf_nested_comment = $form->save();
 
       $this->dispatcher->notify(new sfEvent($this, 'admin.save_object', array('object' => $sf_nested_comment)));
-      
+
       $email_pref = sfNestedCommentConfig::isMailEnabled();
       $enable_mail_alert = $email_pref === true || $email_pref == 'moderated';
 
@@ -69,13 +76,13 @@ class BasesfNestedCommentAdminActions extends autoSfNestedCommentAdminActions
         $params = $this->prepareMailParameter($sf_nested_comment, $userComment);
         sfNestedCommentTools::sendEmail($this->getMailer(), $params);
       }
-      
+
       $this->getUser()->setFlash('notice', $notice);
       $this->redirect('@sf_nested_comment');
     }
     else
     {
-      $this->getUser()->setFlash('error', 'The item has not been saved due to some errors.', false);
+      $this->getUser()->setFlash('error', __('The item has not been saved due to some errors.'), false);
     }
   }
 }

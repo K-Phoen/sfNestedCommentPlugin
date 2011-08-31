@@ -3,32 +3,40 @@ class sfNestedCommentPluginConfiguration extends sfPluginConfiguration
 {
   static protected $HTMLPurifierLoaded = false;
 
+
   public function initialize()
   {
-    if ($this->configuration instanceof sfApplicationConfiguration)
+    if (!($this->configuration instanceof sfApplicationConfiguration))
     {
-      if (sfNestedCommentConfig::isRoutesRegister() && in_array('sfNestedComment', sfConfig::get('sf_enabled_modules', array())))
+      return;
+    }
+
+    if (sfNestedCommentConfig::isRoutesRegister())
+    {
+      $enabled_modules = sfConfig::get('sf_enabled_modules', array());
+
+      if (in_array('sfNestedComment', $enabled_modules))
       {
         $this->dispatcher->connect('routing.load_configuration', array('sfNestedCommentRouting', 'listenToRoutingLoadConfigurationEvent'));
       }
 
-      if (sfNestedCommentConfig::isRoutesRegister() && in_array('sfNestedCommentAdmin', sfConfig::get('sf_enabled_modules', array())))
+      if (in_array('sfNestedCommentAdmin', $enabled_modules))
       {
         $this->dispatcher->connect('routing.load_configuration', array('sfNestedCommentRouting', 'addRouteForNestedCommentAdmin'));
       }
+    }
 
-      sfOutputEscaper::markClassAsSafe('sfNestedCommentsRenderer');
+    sfOutputEscaper::markClassAsSafe('sfNestedCommentsRenderer');
 
-      if (sfNestedCommentConfig::isUsePluginPurifier())
-      {
-        self::registerHTMLPurifier();
-      }
+    if (sfNestedCommentConfig::isUsePluginPurifier())
+    {
+      self::registerHTMLPurifier();
     }
   }
 
   static public function registerHTMLPurifier()
   {
-    if(self::$HTMLPurifierLoaded) {
+    if (self::$HTMLPurifierLoaded) {
       return;
     }
 
